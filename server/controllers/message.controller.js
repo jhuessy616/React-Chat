@@ -2,25 +2,13 @@ const router = require("express").Router();
 const Message = require("../models/message.model");
 
 
-// ! SHOW ALL Messages
-router.get("/messages/:room", async (req, res) => {
-    try {
-        const roomMessages = await Message.find({room:req.params.room});
-        res.status(202).json({
-            allMessagesFromRoom : roomMessages, message:"Success, all messages from specified room displayed."
-        })
-    }
-    catch (error) {
-        res.status(500).json({ message: error.message });   
-    }
-})
 
 // create a message within a room endpoint
 router.post("/create/:room", async (req, res) => {
     try {
         // preppering the message object to be saved to the database 
         const message = new Message({
-            when: req.body.when,
+            when: new Date(),
             user: req.body.user,
             room: req.body.room,
             body:req.body.body,
@@ -72,5 +60,17 @@ router.delete("/delete/:id", async (req, res) => {
     }
 })
 
+// ! SHOW ALL Messages 
+router.get("/:room", async (req, res) => {
+    try {
+        const roomMessages = await Message.find({room:req.params.room});
+        res.status(202).json({
+            allMessagesFromRoom : roomMessages, message:"Success, all messages from specified room displayed."
+        });
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });   
+    }
+});
 
 module.exports = router;

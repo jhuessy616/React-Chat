@@ -8,7 +8,7 @@ const roomController = require("./controllers/room.controller.js");
 
 // connect to mongo database boilerplate 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/zookeeper");
+mongoose.connect(process.env.MONGOOSE_URL); // ! add MONGOOSE_URL to .env file
 const db = mongoose.connection;
 
 // check to see the paths are working and seeing which database we are connected to 

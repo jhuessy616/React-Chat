@@ -62,7 +62,7 @@ router.delete("/delete/:id", async (req, res) => {
         res.json({
         roomThatWasDeleted: roomToDelete,
         deletedRoom: deletedRoom,
-        message: deletedRoom.deletedCount > 0? "Room was deleted" : "Room was not removed"});
+        message: deletedRoom.deletedCount > 0 ? "Room was deleted" : "Room was not removed"});
 
     }
      catch (error) {
