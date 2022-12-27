@@ -6,7 +6,7 @@ const validateSession = require("../middleware/validate-session");
 
 // create a message within a room endpoint
 router.post("/create/:room", validateSession, async (req, res) => {
-try {
+    try {
         // checking if the room exists
         const room = Room.findById(req.body.room);
         if(!room){
@@ -16,14 +16,15 @@ try {
         if(!room.addedUsers.includes(req.user._id)){
             throw new Error("you're not in that room");
         }
-        
+
         // preppering the message object to be saved to the database 
         const message = new Message({
             when: new Date(),
-            user: req.user._id,
+            user: req.body.user,
             room: req.params.room,
             body: req.body.body,
         });
+
         // we need to save the data
         const newMessage = await message.save();
 
@@ -91,7 +92,7 @@ router.get("/:room", validateSession, async (req, res) => {
         });
     }
     catch (error) {
-        res.status(500).json({ message: error.message });   
+        res.status(500).json({ message: error.message });
     }
 });
 

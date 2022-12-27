@@ -5,7 +5,6 @@ const userController = require("./controllers/user.controller.js");
 const messageController = require("./controllers/message.controller.js");
 const roomController = require("./controllers/room.controller.js");
 
-
 // connect to mongo database boilerplate 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGOOSE_URL); // ! add MONGOOSE_URL to .env file
@@ -27,3 +26,4 @@ app.use("/room", roomController);
 app.listen(process.env.PORT, function () {
  console.log(`YOURFILE app is listening on port ${process.env.PORT}`);
 });
+
