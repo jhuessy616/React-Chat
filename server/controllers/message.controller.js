@@ -42,16 +42,19 @@ router.post("/create/:room", validateSession, async (req, res) => {
 router.patch("/update/:id", validateSession, async (req, res) => {
     try {
 
-        const filter = { _id: req.params.id, user: req.user._id}
+        let filter = { _id: req.params.id, user: req.user._id}
 
         const update = req.body;
         const returnOptions = { new: true };
 
+        if (req.user.isAdmin) {
+            filter= { _id: req.params.id}
+        }
         const message = await Message.findOneAndUpdate(filter, update, returnOptions);
 
         // if the message is null then it doesn't exist or the user doesn't own it
         if (!message){
-            throw new Error("you don't own that message");
+            throw new Error("You don't have permission to edit this message.");
         }
         
         res.status(202).json({message:"message updated", updatedMessage:message})
@@ -65,9 +68,13 @@ router.patch("/update/:id", validateSession, async (req, res) => {
 // delete 
 router.delete("/delete/:id", validateSession, async (req, res) => {
     try {
-        const isOwner = await Message.find({_id: req.params.id, user: req.user._id})
-        if(!isOwner.length){
-            throw new Error("that is not your message");
+       let filter = {_id: req.params.id, user: req.user._id};
+        if (req.user.isAdmin){
+            filter = {_id: req.params.id};
+        }
+        const editingRights = await Message.find(filter);
+        if(!editingRights.length){
+            throw new Error("You do not have permission to delete this message.");
         }
         
         const messageToDelete = await Message.findById({ _id: req.params.id });

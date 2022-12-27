@@ -1,7 +1,9 @@
 const router = require("express").Router();
 const Room = require("../models/room.model");
+const validateSession = require("../middleware/validate-session");
+const adminCheck = require("../middleware/adminCheck");
 
-router.post("/create", async (req, res) => {
+router.post("/create",validateSession, async (req, res) => {
     try {
         // preppering the room object to be saved to the database 
         const room = new Room({
@@ -24,7 +26,7 @@ router.post("/create", async (req, res) => {
 
 
 // ! SHOW ALL ROOMS
-router.get("/", async (req, res) => {
+router.get("/", validateSession, async (req, res) => {
     try {
         const room = await Room.find();
         res.status(202).json({
@@ -37,7 +39,7 @@ router.get("/", async (req, res) => {
 })
 
 // Update
-router.patch("/update/:id", async (req, res) => {
+router.patch("/update/:id", adminCheck, async (req, res) => {
     try {
         const filter = { _id: req.params.id }
 
@@ -55,7 +57,7 @@ router.patch("/update/:id", async (req, res) => {
 })
 
 // delete 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id",adminCheck, async (req, res) => {
     try {
         const roomToDelete = await Room.findById({ _id: req.params.id });
         const deletedRoom = await Room.deleteOne({ _id: req.params.id });
