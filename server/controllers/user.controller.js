@@ -12,9 +12,9 @@ router.post("/signup", async (req, res) => {
     const user = new User({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
+      userName: req.body.userName,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 10),
-      isAdmin: req.body.isAdmin
     });
     // 2. Try Catch - we want to try and save the data but if we get an error we want to send back the error message.
 

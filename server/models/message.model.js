@@ -3,14 +3,17 @@ const mongoose = require("mongoose");
 const MessageSchema = new mongoose.Schema({
   when: {
     type: Date,
+    default: Date.now,
         required: true,
   },
   user: {
-      type: String,
+    type: mongoose.Types.ObjectId,
+    ref: "User",
       required:true,
     },
   room: {
-      type: String,
+    type: mongoose.Types.ObjectId,
+    ref:"Room",
       required:true,
   },
   body:{

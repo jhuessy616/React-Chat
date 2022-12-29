@@ -8,19 +8,19 @@ const validateSession = require("../middleware/validate-session");
 router.post("/create/:room", validateSession, async (req, res) => {
     try {
         // checking if the room exists
-        const room = Room.findById(req.body.room);
+        const room = Room.findById(req.params.room);
         if(!room){
-            throw new Error("room not found");
+            throw new Error("You cannot post a message to a room that doesn't exist.");
         }
         // checking if the user is in the room
-        if(!room.addedUsers.includes(req.user._id)){
-            throw new Error("you're not in that room");
-        }
+        // if(!room.addedUsers.includes(req.user._id)){
+        //     throw new Error("you're not in that room");
+        // }
 
         // preppering the message object to be saved to the database 
         const message = new Message({
             when: new Date(),
-            user: req.body.user,
+            user: req.user._id,
             room: req.params.room,
             body: req.body.body,
         });
@@ -44,7 +44,7 @@ router.patch("/update/:id", validateSession, async (req, res) => {
 
         let filter = { _id: req.params.id, user: req.user._id}
 
-        const update = req.body;
+        const update = {body: req.body.body };
         const returnOptions = { new: true };
 
         if (req.user.isAdmin) {
@@ -93,7 +93,7 @@ router.delete("/delete/:id", validateSession, async (req, res) => {
 // ! SHOW ALL Messages within a room
 router.get("/:room", validateSession, async (req, res) => {
     try {
-        const roomMessages = await Message.find({room:req.params.room});
+        const roomMessages = await Message.find({room:req.params.room}).populate("user", "userName");
         res.status(202).json({
             allMessagesFromRoom : roomMessages, message:"Success, all messages from specified room displayed."
         });
