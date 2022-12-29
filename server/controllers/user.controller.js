@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/user.model");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const validateSession = require("../middleware/validate-session");
 
 // ? Create a route that is a POST ("/signup")
 router.post("/signup", async (req, res) => {
@@ -71,9 +72,23 @@ router.post("/login", async (req, res) => {
 // Update
 router.patch("/update/:id", async (req, res) => {
     try {
+        const userToDelete = await User.findById({ _id: req.params.id });
+        if (!userToDelete){
+            res.status(404).json({massage: "user not found"});
+            return;
+        }
+        
+        if (!req.user.isAdmin && req.user._id == userToDelete._id){
+            res.status(403).json({message: "you do not have permision to update that user."});
+            return;
+        }
+
         const filter = { _id: req.params.id }
 
+        req.body.password = bcrypt.hashSync(req.body.password, 10);
+
         const update = req.body;
+
         const returnOptions = { new: true };
 
         const user = await User.findOneAndUpdate(filter, update, returnOptions);
@@ -87,9 +102,17 @@ router.patch("/update/:id", async (req, res) => {
 })
 
 // delete 
-router.delete("/delete/:id", async (req, res) => {
+router.delete("/delete/:id", validateSession, async (req, res) => {
     try {
         const userToDelete = await User.findById({ _id: req.params.id });
+        if (!userToDelete){
+            res.status(404).json({massage: "user not found"});
+            return;
+        }
+        if (!req.user.isAdmin && req.user._id == userToDelete._id){
+            res.status(403).json({message: "you do not have permision to delete that user."});
+            return;
+        }
         const deletedUser = await User.deleteOne({ _id: req.params.id });
         res.json({
         userThatWasDeleted: userToDelete,
