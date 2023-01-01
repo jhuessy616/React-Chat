@@ -12,10 +12,16 @@
 					"name": "localhost:4000/message/create/:room",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": \"someid\",\n    \"room\": \"some other id\",\n    \"body\": \"a message\"\n}",
+							"raw": "{\n    \"user\": \"someid\",\n    \"room\": \"63addeda28d67f52a596dbf0\",\n    \"body\": \"a message\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -36,7 +42,7 @@
 							"variable": [
 								{
 									"key": "room",
-									"value": "test"
+									"value": "63addeda28d67f52a596dbf0"
 								}
 							]
 						}
@@ -44,7 +50,7 @@
 					"response": []
 				},
 				{
-					"name": "localhost:4000/message/messages/:room",
+					"name": "localhost:4000/message/:room",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -84,10 +90,16 @@
 					"name": "localhost:4000/message/delete/:id",
 					"request": {
 						"method": "DELETE",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user\": \"someid\",\n    \"room\": \"some other id\",\n    \"body\": \"a message\"\n}",
+							"raw": "{\n    \"user\": \"63ade36d5118ff1368d4d322\",\n    \"room\": \"63addeda28d67f52a596dbf0\",\n    \"body\": \"updated message\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -108,7 +120,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63a3ca33cc9ade067c82efe0"
+									"value": "63adea06cd31214e348734fc"
 								}
 							]
 						}
@@ -119,7 +131,13 @@
 					"name": "localhost:4000/message/update/:id",
 					"request": {
 						"method": "PATCH",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"user\": \"someid\",\n    \"room\": \"some other id\",\n    \"body\": \"a edited message\"\n}",
@@ -130,20 +148,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:4000//update/:id",
+							"raw": "localhost:4000/message/update/:id",
 							"host": [
 								"localhost"
 							],
 							"port": "4000",
 							"path": [
-								"",
+								"message",
 								"update",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "63a3cabfcc9ade067c82efe6"
+									"value": "63adeae9cd31214e3487350a"
 								}
 							]
 						}
@@ -159,10 +177,16 @@
 					"name": "localhost:4000/room/create",
 					"request": {
 						"method": "POST",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYWIyNzcxZWQzMTAzZmJiOGQyYWVlYiIsImlhdCI6MTY3MjMzOTA5OSwiZXhwIjoxNjcyNDI1NDk5fQ.oeZ5vagdF3xWohkmt8rwJEByXclPEQ7kn9hqd1zMa-g",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"room name\",\n    \"discription\": \"the discription\",\n    \"addedUsers\": []\n}",
+							"raw": "{\n    \"name\": \"blue room\",\n    \"discription\": \"the discription\",\n    \"addedUsers\": []\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -190,7 +214,13 @@
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"name\": \"room name\",\n    \"discription\": \"the discription\",\n    \"addedUsers\": []\n}",
@@ -296,7 +326,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"jonas\",\n    \"lastName\": \"b\",\n    \"email\": \"test@test.com\",\n    \"password\": \"test123\"\n}",
+							"raw": "{\n    \"firstName\": \"jonas\",\n    \"lastName\": \"b\",\n    \"userName\": \"prop\",\n    \"email\": \"test1@test.com\",\n    \"password\": \"test123\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -352,7 +382,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"jonas\",\n    \"lastName\": \"b\",\n    \"email\": \"test@test.com\",\n    \"password\": \"test123\"\n}",
+							"raw": "{\n    \"password\": \"test1234\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,7 +403,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63a3cd34cc9ade067c82eff0"
+									"value": "63addd95c778bf6800409055"
 								}
 							]
 						}
@@ -408,7 +438,7 @@
 							"variable": [
 								{
 									"key": "id",
-									"value": "63a3cd34cc9ade067c82eff0"
+									"value": "63addd95c778bf6800409055"
 								}
 							]
 						}
