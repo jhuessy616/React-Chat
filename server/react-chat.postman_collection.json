@@ -50,13 +50,19 @@
 					"response": []
 				},
 				{
-					"name": "localhost:4000/message/:room",
+					"name": "localhost:4000/message/getall/:room",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{JWT}}",
+								"type": "default"
+							}
+						],
 						"body": {
 							"mode": "raw",
 							"raw": "{\n    \"user\": \"someid\",\n    \"room\": \"some other id\",\n    \"body\": \"a message\"\n}",
@@ -67,19 +73,20 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:4000/message/:room",
+							"raw": "localhost:4000/message/getall/:room",
 							"host": [
 								"localhost"
 							],
 							"port": "4000",
 							"path": [
 								"message",
+								"getall",
 								":room"
 							],
 							"variable": [
 								{
 									"key": "room",
-									"value": "another id"
+									"value": ""
 								}
 							]
 						}
