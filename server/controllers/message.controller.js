@@ -52,7 +52,6 @@ router.patch("/update/:id", validateSession, async (req, res) => {
       update,
       returnOptions
     );
-
     // if the message is null then it doesn't exist or the user doesn't own it
     if (!message) {
       throw new Error("You don't have permission to edit this message.");
@@ -70,6 +69,12 @@ router.patch("/update/:id", validateSession, async (req, res) => {
 // ! Delete a message endpoint --------------------------------------
 router.delete("/delete/:id", validateSession, async (req, res) => {
   try {
+    // storing the message object we want to delete
+    const messageToDelete = await Message.findById({ _id: req.params.id });
+    // if there is no matching message
+    if (!messageToDelete) {
+      res.status(403).json({ message: "Message was not found" });
+    }
     // using a filter to see if the user owns the message
     let filter = { _id: req.params.id, user: req.user._id };
     // Using a different filter of the user is an admin because they will do not need to be the owner
@@ -82,8 +87,6 @@ router.delete("/delete/:id", validateSession, async (req, res) => {
     if (!editingRights.length) {
       throw new Error("You do not have permission to delete this message.");
     }
-    // storing the message object we want to delete
-    const messageToDelete = await Message.findById({ _id: req.params.id });
     // using the method delete one to delete the message based on it's id.
     const deletedMessage = await Message.deleteOne({ _id: req.params.id });
     // response

@@ -78,8 +78,11 @@ router.patch("/update/:id", validateSession, async (req, res) => {
       res.status(404).json({ message: "User not found" });
       return;
     }
+    console.log(req.user._id)
+    console.log(userToUpdate._id)
+    console.log(req.user._id.toString() == userToUpdate._id.toString())
     // checking to see if the user is the creator or an admin. If they aren't, they get an error.
-    if (!req.user.isAdmin || req.user._id != userToDelete._id) {
+    if ((!req.user.isAdmin )&& (req.user._id.toString() != userToUpdate._id.toString())) {
       res
         .status(403)
         .json({ message: "You do not have permission to update that user." });
@@ -112,8 +115,8 @@ router.delete("/delete/:id", validateSession, async (req, res) => {
       res.status(404).json({ massage: "user not found" });
       return;
     }
-    // if the user is not an admin or the creator of the user.
-    if (!req.user.isAdmin || req.user._id != userToDelete._id) {
+    // if the user is not an admin/ the creator of the user.
+    if ((!req.user.isAdmin) && (req.user._id.toString() != userToDelete._id.toString())) {
       res
         .status(403)
         .json({ message: "You do not have permission to delete that user." });
