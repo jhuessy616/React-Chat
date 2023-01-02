@@ -1,5 +1,7 @@
+// ! Importing mongoose 
 const mongoose = require("mongoose");
 // ! We are defining the fields that will be in our collection (AKA Table)
+// Setting up UserSchema to have firstName, lastName, userName, email, password, isAdmin
 const UserSchema = new mongoose.Schema({
   firstName: {
     type: String,
@@ -27,5 +29,5 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
   default: false,}
 });
-
+// !Exporting UserSchema
 module.exports = mongoose.model("User", UserSchema);

@@ -4,3 +4,5 @@
         if(!room.addedUsers.includes(req.user._id)){
             throw new Error("you're not in that room");
         }
+
+        instead of throw new error could do res.status() with coreect status
