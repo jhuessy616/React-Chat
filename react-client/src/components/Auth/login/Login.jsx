@@ -1,16 +1,25 @@
-import React, {useRef} from "react";
-
-import { Button, Form, FormGroup, Input, Label } from "reactstrap";
+import React, {useRef, useState} from "react";
+import { Button, Form, FormGroup, Input, Label, Alert } from "reactstrap";
+import './Login.css'
 
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
+
+    const [loginError, setLoginError] = useState("");
+    const [loginErrorClass, setLoginErrorClass] = useState("none");
 
   async function handleSubmit(e) {
     e.preventDefault();
  
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
+
+    if (email == "" || password == "") {
+        setLoginError("missing input");
+        setLoginErrorClass("some");
+        return;
+    }
 
     let url = `http://localhost:4000/user/login`;
 
@@ -46,11 +55,16 @@ const Login = () => {
         <FormGroup>
           <Label>Password: </Label>
           <Input type="password" innerRef={passwordRef} />
-              </FormGroup>
+        </FormGroup>
+
+        <Alert color="danger" className={loginErrorClass}>
+            {loginError}
+        </Alert>
               
         <Button type="submit" color="primary">
          Login
         </Button>
+
       </Form>
     </>
   );
