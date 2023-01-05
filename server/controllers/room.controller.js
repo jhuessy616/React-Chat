@@ -13,7 +13,7 @@ router.post("/create", validateSession, async (req, res) => {
     const room = new Room({
       name: req.body.name,
       description: req.body.description,
-      addedUsers: req.body.addedUsers,
+      addedUsers: []
     });
     // we need to save the data, do that by using .save()
     const newRoom = await room.save();

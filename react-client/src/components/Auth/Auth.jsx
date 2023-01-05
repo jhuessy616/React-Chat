@@ -8,7 +8,7 @@ function Auth(props) {
   return (
       <>
           <div className="background">
-          <Container >
+          <Container className="authcontainer">
           <h1>Welcome to JSQUARED CHAT</h1>
               <Row>
                   <Col md="6">

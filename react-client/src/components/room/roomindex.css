@@ -1,0 +1,17 @@
+.roombackground{
+background:url("https://live.staticflickr.com/7445/10728400246_c006fa51cd_b.jpg");
+   background-size: cover;
+    height:100vh;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.roomcontainer {
+    background-color: rgba(243,187,80, .8)
+}
+
+.roomcontainer h1{
+    color: rgb(90,0,3);
+    background-color:rgb(0,0,0,0);
+}

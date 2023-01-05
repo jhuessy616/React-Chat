@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Auth from './components/Auth/Auth' 
 import './App.css';
+import RoomIndex from "./components/room/RoomIndex";
 
 function App() {
     const [sessionToken, setSessionToken] = useState("");
@@ -20,7 +21,7 @@ function App() {
     <div className="App">
     <Routes>
         <Route path="/" element={<Auth updateToken={updateToken} />} />
-        <Route path="/home" element={<h2>Home Section</h2>}/>
+        <Route path="/home" element={<RoomIndex token={sessionToken} />}/>
       </Routes>
     </div>
   );
