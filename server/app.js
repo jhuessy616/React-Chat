@@ -6,6 +6,7 @@ const app = express();
 const userController = require("./controllers/user.controller.js");
 const messageController = require("./controllers/message.controller.js");
 const roomController = require("./controllers/room.controller.js");
+const cors = require("cors")
 
 // import and connect to mongo database boilerplate
 const mongoose = require("mongoose");
@@ -16,6 +17,8 @@ const db = mongoose.connection;
 // check to see the paths are working and seeing which database we are connected to
 db.once("open", () => console.log("Connected to the database " + db.name));
 
+// enable the express server to respond to preflight requests, need this for react to run properly.
+app.use(cors());
 // needed so we can access json objects
 app.use(express.json());
 

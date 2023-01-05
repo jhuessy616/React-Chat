@@ -1,3 +1,5 @@
 # ! Everything you do not want pushed to github goes in your .gitignore
 node_modules/
 julia-jonas.md
+.env
+
