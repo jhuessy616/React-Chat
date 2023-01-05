@@ -4,21 +4,23 @@ import Login from "./login/Login";
  
 import "./auth.css"
 
-function Auth() {
+function Auth(props) {
   return (
       <>
-          <Container>
+          <div className="background">
+          <Container >
           <h1>Welcome to JSQUARED CHAT</h1>
               <Row>
                   <Col md="6">
-          <Signup />
+          <Signup   updateToken={props.updateToken}/>
                   </Col>
                  <Col md="6">
-          <Login/>
+          <Login updateToken={props.updateToken}/>
                   </Col> 
               </Row>
               
-          </Container>
+              </Container>
+              </div>
           </>
   )
 }

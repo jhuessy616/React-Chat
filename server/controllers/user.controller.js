@@ -30,7 +30,7 @@ router.post("/signup", async (req, res) => {
     // Success response, status 201 user created
     res.status(201).json({
       user: newUser,
-      message: "Success:User Created",
+      message: "Success",
       token: token,
     });
     // Error response, status 400 because client gave bad or incomplete data.

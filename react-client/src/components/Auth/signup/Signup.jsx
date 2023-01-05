@@ -1,16 +1,19 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label, Alert } from "reactstrap";
-import './Signup.css'
+import FullWidthButton from "../../Buttons/FullWidthButton";
 
 
 
-const Signup = () => {
+
+const Signup = (props) => {
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const userNameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
-    const confirmPasswordRef = useRef();
+  const confirmPasswordRef = useRef();
+  const navigate = useNavigate();
 
     const [formError, setFormError] = useState("");
     const [formErrorClass, setFormErrorClass] = useState("none");
@@ -53,7 +56,15 @@ const Signup = () => {
         try {
             const response = await fetch(url, requestOptions);
             const data = await response.json();
-            console.log(data);
+          console.log(data);
+           if (data.message === "Success") { 
+         // We are free to navigate to another page
+        props.updateToken(data.token)
+          navigate("/home");
+      }
+      else {
+        alert(data.message);
+      }
         } catch (error) {
             console.log(error.message);
         }
@@ -98,9 +109,13 @@ const Signup = () => {
             {formError}
         </Alert> 
 
-        <Button type="submit" color="danger">
-          Sign Up
-        </Button>
+     <FullWidthButton>
+          <Button type="submit" color="danger">
+            Sign Up
+          </Button>
+          </FullWidthButton>
+     
+
       </Form>
     </>
   );

@@ -1,10 +1,13 @@
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button, Form, FormGroup, Input, Label, Alert } from "reactstrap";
 import './Login.css'
+import FullWidthButton from "../../Buttons/FullWidthButton";
 
-const Login = () => {
+const Login = (props) => {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const navigate = useNavigate();
 
     const [loginError, setLoginError] = useState("");
     const [loginErrorClass, setLoginErrorClass] = useState("none");
@@ -36,7 +39,15 @@ const Login = () => {
     try {
       const response = await fetch(url, requestOptions);
       const data = await response.json();
-        console.log(data);
+      console.log(data);
+       if (data.message === "Success") { 
+         // We are free to navigate to another page
+        props.updateToken(data.token)
+          navigate("/home");
+      }
+      else {
+        alert(data.message);
+      }
     } catch (error) {
         console.log(error.message);
         alert(error.message)
@@ -61,9 +72,11 @@ const Login = () => {
             {loginError}
         </Alert>
               
+        <FullWidthButton>
         <Button type="submit" color="primary">
          Login
-        </Button>
+          </Button>
+          </FullWidthButton>
 
       </Form>
     </>
