@@ -9,8 +9,8 @@ import FullWidthButton from "../../Buttons/FullWidthButton";
 
 // ! React Component-----------------------------------------------------------------------
 
+// ? Contants and everything we are passing to the server---------------------------------------------------------------------
 const Login = (props) => {
-  // ? Contants and everything we are passing to the server---------------------------------------------------------------------
   // constants we need for useRef, for the login we need the email and password
   const emailRef = useRef();
   const passwordRef = useRef();

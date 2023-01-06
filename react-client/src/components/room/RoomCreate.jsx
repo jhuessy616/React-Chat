@@ -4,13 +4,15 @@ import FullWidthButton from "../Buttons/FullWidthButton";
 
 function RoomCreate(props) {
     const nameRef = useRef();
-    const  descriptionRef= useRef();
+    const descriptionRef = useRef();
+    const formRef = useRef();
     
 
   async function handleSubmit(e) {
       e.preventDefault();
       const name = nameRef.current.value
       const description = descriptionRef.current.value
+       
       
       
       
@@ -30,17 +32,21 @@ function RoomCreate(props) {
       
         try {
       const response = await fetch(url, requestOptions);
-            const data = await response.json();
+          const data = await response.json();
+          props.fetchMovies()
+          formRef.current.reset()
     } catch (error) {
       console.log(error.message)
-    }
+        }
+     
+     
   }
 
     
     
   return (
       <>
-          <Form onSubmit={handleSubmit}>
+          <Form innerRef={formRef} onSubmit={handleSubmit}>
               <h2>Create a Room</h2>
               <FormGroup>
                   <Label>Room Name</Label>
