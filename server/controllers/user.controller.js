@@ -24,7 +24,7 @@ router.post("/signup", async (req, res) => {
     // mongoose has built in .save, writing the file for us
     const newUser = await user.save();
     // After we generate a NEW user we will generate a token to identify that user
-    const token = jwt.sign({ id: newUser._id }, process.env.JWT, {
+    const token = jwt.sign({ id: newUser._id, isAdmin:newUser.isAdmin}, process.env.JWT, {
       expiresIn: 60 * 60 * 24,
     });
     // Success response, status 201 user created
@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
       throw new Error("Passwords Do Not Match");
     }
     // If all our checks are passed we will provide a token to the user upon successful login
-    const token = jwt.sign({ id: user._id }, process.env.JWT, {
+    const token = jwt.sign({ id: user._id, isAdmin:user.isAdmin }, process.env.JWT, {
       expiresIn: 60 * 60 * 24,
     });
     // Successful login status
@@ -134,6 +134,20 @@ router.delete("/delete/:id", validateSession, async (req, res) => {
     });
   } catch (error) {
     // if there's a server error
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// ! Get one User --------------------------------------------
+router.get("/:id", validateSession, async (req, res) => {
+  try {
+    const user = await User.findById({ _id: req.user._id });
+
+    res.status(200).json({
+      user: user,
+      message: "Success",
+    });
+  } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });

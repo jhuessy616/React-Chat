@@ -51,7 +51,7 @@ function RoomIndex(props) {
                   <Col md="4">
                       <RoomCreate token={props.token} fetchRooms={fetchRooms} />
                   </Col>
-                      <Col md="8"><RoomDisplay token={props.token} rooms={rooms} /></Col>
+                      <Col md="8"><RoomDisplay token={props.token} rooms={rooms} fetchRooms={fetchRooms} /></Col>
               </Row>
           </Container>
           </div>
