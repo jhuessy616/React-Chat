@@ -6,16 +6,18 @@ import { Col, Container, Row } from "reactstrap"
 import './message.css'
 import MessageDisplay from "./MessageDisplay"
 import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom";
 
 // ! React Component -------------------------------------------------------------
  // ? Contants and everything we are passing to the server---------------------------------------------------------------------
 function MessageIndex(props) {
+    const { id, name } = useParams();
     // Setting up state so we can edit/update the messages. 
     const [messages, setMessages] = useState([]);
     // Fetching all rooms from our database so we will be able to access and display them in MessageCreate and MessageDisplay.
     const fetchMessages = async () => {
     //   everything we need to send to the database being stored in variables
-    const url = `http://localhost:4000/getall/:room`;
+    const url = `http://localhost:4000/message/getall/${id}`;
     let myHeaders = new Headers();
     myHeaders.append("Authorization", props.token);
     const requestOptions = {
@@ -48,23 +50,18 @@ function MessageIndex(props) {
           
          
               <Container className="messagecontainer">
-                  <h1>Welcome to the Chat</h1>
-                  <Col md="10">
-                      <Row md="3">
-                          <h1> Hi</h1><MessageDisplay token={props.token} messages={messages} fetchRooms={fetchRooms} />
-                      </Row>
-                      
-                      <Row md="9">
-                          <h1> Hi </h1>
+                  <h1>Welcome to the {name} Chat</h1>
+                          <MessageDisplay token={props.token} messages={messages} fetchMessages={fetchMessages} />
+                   
                       <MessageCreate token={props.token} fetchMessages={fetchMessages} />
-                  </Row>
+                  
 
-                  </Col>
+                  
           </Container>
          </body>
       </>
   )
 }
 
-// exporting the RoomIndex
+// exporting the MessageIndex
 export default MessageIndex

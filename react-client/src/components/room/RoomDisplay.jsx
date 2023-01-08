@@ -53,7 +53,7 @@ function RoomDisplay(props) {
                     <p>{room.description}</p>
                      <Button
                   color="primary"
-                  onClick={() => navigate(`/room/${room._id}`)}>
+                  onClick={() => navigate(`/chat/${room.name}/${room._id}`)}>
                Join
                     </Button>
 
