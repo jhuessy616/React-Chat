@@ -33,7 +33,7 @@ function RoomCreate(props) {
         try {
       const response = await fetch(url, requestOptions);
           const data = await response.json();
-          props.fetchMovies()
+          props.fetchRooms()
           formRef.current.reset()
     } catch (error) {
       console.log(error.message)

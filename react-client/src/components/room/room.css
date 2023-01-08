@@ -15,3 +15,10 @@ background:url("https://live.staticflickr.com/7445/10728400246_c006fa51cd_b.jpg"
     color: rgb(90,0,3);
     background-color:rgb(0,0,0,0);
 }
+
+.room {
+    border: solid rgb(90,0,3) 2px;
+    margin: 15px 50px;
+    padding: 5px;
+    
+}

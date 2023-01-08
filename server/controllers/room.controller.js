@@ -84,5 +84,18 @@ router.delete("/delete/:id", adminCheck, async (req, res) => {
     res.json({ message: error.message });
   }
 });
+
+// ! Get One Room --------------------------------------------------------------------------
+router.get("/:id", validateSession, async (req, res) => {
+  try {
+    const room = await Room.findById({ _id: req.params.id });
+    res.status(200).json({
+      room: room,
+      message: "Success",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
 // !Exporting router
 module.exports = router;

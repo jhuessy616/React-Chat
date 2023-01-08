@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Auth from './components/Auth/Auth' 
 import './App.css';
 import RoomIndex from "./components/room/RoomIndex";
+import RoomEdit from "./components/room/RoomEdit";
 
 function App() {
     const [sessionToken, setSessionToken] = useState("");
@@ -21,7 +22,8 @@ function App() {
     <div className="App">
     <Routes>
         <Route path="/" element={<Auth updateToken={updateToken} />} />
-        <Route path="/home" element={<RoomIndex token={sessionToken} />}/>
+        <Route path="/home" element={<RoomIndex token={sessionToken} />} />
+         <Route path="/roomedit/:id" element={<RoomEdit token={sessionToken} />} />
       </Routes>
     </div>
   );

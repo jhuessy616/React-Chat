@@ -138,10 +138,24 @@ router.delete("/delete/:id", validateSession, async (req, res) => {
   }
 });
 
+// ! Get current User 
+router.get("/me", validateSession, async (req, res) => {
+  try {
+    const user = await User.findById({ _id: req.user._id });
+
+    res.status(200).json({
+      user: user,
+      message: "Success",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // ! Get one User --------------------------------------------
 router.get("/:id", validateSession, async (req, res) => {
   try {
-    const user = await User.findById({ _id: req.user._id });
+    const user = await User.findById({ _id: req.params.id });
 
     res.status(200).json({
       user: user,

@@ -7,6 +7,7 @@ import { useEffect, useState } from "react"
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { Button } from "reactstrap";
+import './room.css'
 
 
 // ! React Component-------------------------------------------------------------
@@ -15,6 +16,7 @@ function RoomDisplay(props) {
    const decoded = props.token ? jwt_decode(props.token) : "";
     const navigate = useNavigate();
 
+  // ! Delete room function ----------------------------------------------------------------
      async function deleteRoom(id) {
     const url = `http://localhost:4000/room/delete/${id}`;
 
@@ -38,14 +40,16 @@ function RoomDisplay(props) {
     } catch (err) {
       console.log(err);
     }
-  }
+     }
+  
+  // ! Edit Room function-------------------------------------------------------------------------
     return (
         <>
-            {/* displaying all rooms by maping through the array */}
-            <h1>Select a Room</h1>
+            {/* displaying all rooms by mapping through the array */}
+            <h2>Select a Room</h2>
             {props.rooms.map((room) => (
                 <div key= {room._id} className="room">
-              <h2>{room.name}</h2>
+              <h3>{room.name}</h3>
                     <p>{room.description}</p>
                      <Button
                   color="primary"
@@ -56,11 +60,11 @@ function RoomDisplay(props) {
                     {decoded.isAdmin === true ? (
                         <>
                             {" "}
-                            {/* <Button
+                            <Button
                   color="warning"
-                  onClick={() => editRoom(room._id)}>
+                  onClick={() => navigate(`/roomedit/${room._id}`)}>
                Edit
-                </Button> */}
+                </Button>
                             <Button onClick={() => deleteRoom(room._id)} color="danger">Delete</Button>
                         </>
                     ) : null}

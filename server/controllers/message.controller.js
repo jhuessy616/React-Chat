@@ -122,5 +122,19 @@ router.get("/getall/:room", validateSession, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// ! Get One Message--------------------------------------------------------------------------
+router.get("/:id", validateSession, async (req, res) => {
+  try {
+    const message = await Message.findById({ _id: req.params.id });
+    res.status(200).json({
+      message: message,
+      successMessage: "Success",
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // !Exporting router
 module.exports = router;

@@ -3,7 +3,7 @@
 // !Imports Section -------------------------------------------------------------
 import RoomCreate from "./RoomCreate"
 import { Col, Container, Row } from "reactstrap"
-import './roomindex.css'
+import './room.css'
 import RoomDisplay from "./RoomDisplay"
 import { useEffect, useState } from "react"
 
@@ -39,11 +39,13 @@ function RoomIndex(props) {
     }
   }, [props.token]);
 
+   
  // ?------------------The return, which is what is visible to the client
   return (
       <>
-          {/* contains a create area and a display area, creat will use 1/3 of the screen and the display will take up the other 2/3rds */}
-          <div className="roombackground">
+      {/* contains a create area and a display area, creat will use 1/3 of the screen and the display will take up the other 2/3rds */}
+      <body className="roombackground">
+          
          
               <Container className="roomcontainer">
                    <h1>Select a Room or Create a Room</h1>
@@ -54,7 +56,7 @@ function RoomIndex(props) {
                       <Col md="8"><RoomDisplay token={props.token} rooms={rooms} fetchRooms={fetchRooms} /></Col>
               </Row>
           </Container>
-          </div>
+         </body>
       </>
   )
 }
