@@ -13,36 +13,36 @@ import './room.css'
 // ! React Component-------------------------------------------------------------
 function RoomDisplay(props) {
     console.log(props);
-   const decoded = props.token ? jwt_decode(props.token) : "";
+    const decoded = props.token ? jwt_decode(props.token) : "";
     const navigate = useNavigate();
 
-  // ! Delete room function ----------------------------------------------------------------
-     async function deleteRoom(id) {
-    const url = `http://localhost:4000/room/delete/${id}`;
+    // ! Delete room function ----------------------------------------------------------------
+    async function deleteRoom(id) {
+        const url = `http://localhost:4000/room/delete/${id}`;
 
-    let myHeaders = new Headers();
-    myHeaders.append("Authorization", props.token);
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", props.token);
 
-    let requestOptions = {
-      headers: myHeaders,
-      method: "DELETE",
-    };
-    try {
-      let response = await fetch(url, requestOptions);
-      let data = await response.json();
-      console.log(data);
-      props.fetchRooms()
-      if (data.message === "Room was deleted") {
+        let requestOptions = {
+            headers: myHeaders,
+            method: "DELETE",
+        };
+        try {
+            let response = await fetch(url, requestOptions);
+            let data = await response.json();
+            console.log(data);
+            props.fetchRooms()
+            if (data.message === "Room was deleted") {
+            }
+            else {
+                alert(data.message)
+            }
+        } catch (err) {
+            console.log(err);
         }
-      else {
-        alert(data.message)
-      }
-    } catch (err) {
-      console.log(err);
     }
-     }
-  
-  // ! Edit Room function-------------------------------------------------------------------------
+
+    // ! Edit Room function-------------------------------------------------------------------------
     return (
         <>
             {/* displaying all rooms by mapping through the array */}
@@ -62,7 +62,11 @@ function RoomDisplay(props) {
                             {" "}
                             <Button
                   color="warning"
-                  onClick={() => navigate(`/roomedit/${room._id}`)}>
+                  onClick={() => {
+                      props.setUpdateMode(true)
+                      props.setUpdateId(room._id)
+                      console.log(room._id)
+                  }}>
                Edit
                 </Button>
                             <Button onClick={() => deleteRoom(room._id)} color="danger">Delete</Button>

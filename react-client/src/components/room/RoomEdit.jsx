@@ -1,130 +1,118 @@
-// ! Edit Room ----------------------------------------------------------------------------------
-// ! Imports --------------------------------------------------------------------------------
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import {
-  Col,
-  Container,
-  Row,
-  Button,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Alert,
-} from "reactstrap";
+import { useRef, useEffect, useState } from "react";
+import { Form, FormGroup, Input, Label, Button } from "reactstrap";
 import FullWidthButton from "../Buttons/FullWidthButton";
 
- // ! Edit Room function need this to be here to pass to both room create and roomdisplay -------------------------------------------------------------------------
+
+
 function RoomEdit(props) {
-    const { id } = useParams();
-    const [roomName, setRoomName] = useState("");
-    const [roomDescription, setRoomDescription] = useState("");
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-     const clearState = () => {
-        setRoomName('')
-        setRoomDescription('')
-    }
-  
+
+
+    const nameRef = useRef();
+    const descriptionRef = useRef();
+    const [roomName, setRoomName] = useState();
+    const [roomDescription, setRoomDescription] = useState();
+    const formRef = useRef();
+
 
     async function handleSubmit(e) {
-      e.preventDefault();
-      let url = `http://localhost:4000/room/update/${id}`;
+        e.preventDefault();
+        props.setUpdateMode(false);
 
-      let bodyObj = JSON.stringify({
-        name: roomName,
-        description: roomDescription
-      });
+        const name = nameRef.current.value
+        const description = descriptionRef.current.value
 
-      let myHeaders = new Headers();
-      myHeaders.append("Authorization", props.token);
-      myHeaders.append("Content-Type", "application/json");
+        let url = `http://localhost:4000/room/update/${props.updateId}`
 
-      const requestOptions = {
-        headers: myHeaders,
-        body: bodyObj,
-        method: "PATCH",
-      };
+        let bodyObject = JSON.stringify({ name, description})
 
-      try {
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        console.log(data);
-        if (data.message === "room updated") {
-          setShowSuccessMessage(true);
-          setTimeout(() => setShowSuccessMessage(false), 5000);
-           clearState()
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", props.token);
+
+        const requestOptions = {
+            headers: myHeaders,
+            body: bodyObject,
+            method: "PATCH",
+        };
+
+        try {
+            const response = await fetch(url, requestOptions);
+            const data = await response.json();
+            props.fetchRooms()
+            console.log(data)
+            formRef.current.reset()
+        } catch (error) {
+            console.log(error.message)
         }
-      } catch (error) {
-        console.log(error);
-      }
+
+
     }
+
     const fetchRoom = async () => {
-      const url = `http://localhost:4000/room/${id}`;
-      let myHeaders = new Headers();
-      myHeaders.append("Authorization", props.token);
+        const url = `http://localhost:4000/room/${props.updateId}`;
+        let myHeaders = new Headers();
+        myHeaders.append("Authorization", props.token);
 
-      const requestOptions = {
-        method: "GET",
-        headers: myHeaders,
-      };
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+        };
 
-      try {
-        const response = await fetch(url, requestOptions);
-        const data = await response.json();
-        console.log(data)
-        setRoomName(data.room.name);
-        setRoomDescription(data.room.description);
-    
-      } catch (err) {
-        console.log(err.message);
-      }
+        try {
+            const response = await fetch(url, requestOptions);
+            const data = await response.json();
+            console.log("data", data)
+            setRoomName(data.room.name);
+            setRoomDescription(data.room.description);
+
+        } catch (err) {
+            console.log(err.message);
+        }
     };
 
+    /* useEffect(() => {
+        if (props.token) {
+            fetchRoom();
+        }
+    }, [props.token]); */
+  
     useEffect(() => {
-      if (props.token) {
         fetchRoom();
-      }
-    }, [props.token]);
-  
-  
-     return (
- <>
-      <Container>
-        <Row>
-        
-            {showSuccessMessage ? (
-              <Alert color="success">Room was updated</Alert>
-            ) : null}
-         
-          <Col md="8">
-            <Form onSubmit={handleSubmit}>
+    }, [props.updateId]);
+    
+    
+  return (
+      <>
+          <Form innerRef={formRef} onSubmit={handleSubmit}>
+              <h2>Update a Room</h2>
               <FormGroup>
-                <Label>Room Name</Label>
-                <Input
-                  value={roomName}
-                  onChange={(e) => setRoomName(e.target.value)}
-                />
+                  <Label>Room Name</Label>
+                  <Input 
+                    value={roomName}
+                    innerRef={nameRef}
+                    onChange={(e) => setRoomName(e.target.value)}
+                    /> 
               </FormGroup>
-              <FormGroup>
-                <Label>Room Description</Label>
-                <Input
-                  type="textarea"
-                  value={roomDescription}
-                  onChange={(e) => setRoomDescription(e.target.value)}
-                />
-              </FormGroup>
-              
-              <FullWidthButton>
-                <Button>Update Room</Button>
-              </FullWidthButton>
-            </Form>
-          </Col>
-        </Row>
-      </Container>
-    </>
-  );
-};
 
+              <FormGroup>
+                  <Label> Room Description</Label>
+                  <Input 
+                    value={roomDescription} 
+                    type="textarea"
+                    innerRef={descriptionRef} 
+                    onChange={(e) => setRoomDescription(e.target.value)}
+                />
+              </FormGroup>
+
+        
+              <FullWidthButton>
+                  <Button style={{ backgroundColor: "rgb(187,8,11)" }} type="submit">Update Room</Button>
+              </FullWidthButton>
+
+          </Form>
+      </>
+      
+  )
+}
 
 export default RoomEdit
