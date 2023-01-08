@@ -46,31 +46,32 @@ function MessageDisplay(props) {
         <>
             {/* displaying all messages by mapping through the array */}
             <ul className="message-list">
-                   {props.messages.map((message) => (
-                <li key= {message._id} className="message">
-                           <div>{message.user.userName} {message.when}</div>
-                    <div>{message.body}</div>
-                   
-                           {decoded.isAdmin === true || decoded.id === message.user._id ? (
-                               <div>
-                        <>
-                                   {" "}
-                                   
-                            <Button
-                  color="warning"
-                  onClick={() => { console.log("update")
-                  }}>
-               Edit
-                </Button>
-                            <Button onClick={() => deleteMessage(message._id)} color="danger">Delete</Button>
-                                   </>
-                                   </div>
-                                   
-                           ) : null}
-                           </li>
-          </ul>
-            ))
-            
+                {props.messages.map((message) => (
+                    <li key={message._id} className="message">
+                        <div>{message.user.userName} {message.when}</div>
+                        <div>{message.body}</div>
+
+                        {decoded.isAdmin === true || decoded.id === message.user._id ? (
+                            <div>
+                                <>
+                                    {" "}
+
+                                    <Button
+                                        color="warning"
+                                        onClick={() => {
+                                            console.log("update")
+                                        }}>
+                                        Edit
+                                    </Button>
+                                    <Button onClick={() => deleteMessage(message._id)} color="danger">Delete</Button>
+                                </>
+                            </div>
+
+                        ) : null}
+                    </li>
+                ))
+                }
+            </ul>
         </>
     )
 }
