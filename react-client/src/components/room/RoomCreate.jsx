@@ -48,8 +48,9 @@ function RoomCreate(props) {
     
   return (
       <>
-          <Form innerRef={formRef} onSubmit={handleSubmit}>
-              <h2>Create a Room</h2>
+          <div className="createRoom">
+          <h2>Create a Room</h2>
+          <Form innerRef={formRef} onSubmit={handleSubmit} className="createForm">
               <FormGroup>
                   <Label>Room Name</Label>
                   <Input innerRef={nameRef} /> 
@@ -65,7 +66,8 @@ function RoomCreate(props) {
                   <Button style={{ backgroundColor: "rgb(187,8,11)" }} type="submit">Create Room</Button>
               </FullWidthButton>
 
-          </Form>
+              </Form>
+              </div>
       </>
       
   )

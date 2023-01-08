@@ -6,7 +6,7 @@ import Room from './Room'
 import { useEffect, useState } from "react"
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Container } from "reactstrap";
 import './room.css'
 
 
@@ -45,14 +45,15 @@ function RoomDisplay(props) {
     // ! Edit Room function-------------------------------------------------------------------------
     return (
         <>
-            {/* displaying all rooms by mapping through the array */}
-            <h2>Select a Room</h2>
+        {/* displaying all rooms by mapping through the array */}
+            <h2 className="roomDisplay">Select a Room</h2>
+        <div className="roomDisplay">
             {props.rooms.map((room) => (
                 <div key= {room._id} className="room">
               <h3>{room.name}</h3>
                     <p>{room.description}</p>
                      <Button
-                  color="primary"
+                  style={{ backgroundColor: "rgb(187,8,11)" }} 
                   onClick={() => navigate(`/chat/${room.name}/${room._id}`)}>
                Join
                     </Button>
@@ -74,7 +75,7 @@ function RoomDisplay(props) {
                     ) : null}
           </div>
             ))}
-            
+            </div>
         </>
     )
 }

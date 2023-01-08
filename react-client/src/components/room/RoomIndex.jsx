@@ -49,20 +49,22 @@ function RoomIndex(props) {
   return (
       <>
       {/* contains a create area and a display area, creat will use 1/3 of the screen and the display will take up the other 2/3rds */}
-      <body className="roombackground">
+      <div  className="roombackground border d-flex align-items-center justify-content-center">
           
          
               <Container className="roomcontainer">
                    <h1>Select a Room or Create a Room</h1>
               <Row>
-                  <Col md="4">
+                  <Col md="5">
                     {updateMode ? <RoomEdit updateId={updateId} setUpdateMode={setUpdateMode} token={props.token} fetchRooms={fetchRooms} /> : <RoomCreate token={props.token} fetchRooms={fetchRooms} />}
-                  </Col>
-                      <Col md="8"><RoomDisplay setUpdateId={setUpdateId} setUpdateMode={setUpdateMode} token={props.token} rooms={rooms} fetchRooms={fetchRooms} /></Col>
+            </Col>
+            <Col md="1"></Col>
+                      <Col md="6"><RoomDisplay  setUpdateId={setUpdateId} setUpdateMode={setUpdateMode} token={props.token} rooms={rooms} fetchRooms={fetchRooms} /></Col>
               </Row>
           </Container>
-         </body>
+      </div>
       </>
+      
   )
 }
 

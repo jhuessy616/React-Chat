@@ -1,4 +1,66 @@
 .messagecontainer{
     height: calc(100% - 100px); 
+    background-color: red;
 
+}
+
+.message{
+  
+    margin: 15px 0;
+text-align: left;
+}
+.message div:nth-child(1) {
+    font-size: 11px;
+    color: var(--main-text-color);
+    opacity: 0.9;
+    margin-bottom: 6px;
+}
+.message div:nth-child(2) {
+    background: blue;
+    color: white;
+    display: inline;
+    padding: 4px 8px;
+    border-radius: 8px;
+}
+
+.message-list {
+    box-sizing: border-box;
+    padding: 0 0 0 6px;
+    margin: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow: scroll;
+    background: white;
+    border: solid black 2px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.send-message-form {
+    position: fixed;
+    bottom:0;
+    width:100%;
+    margin: 15px;
+    box-sizing: border-box;
+    height: 50px;
+    margin-top: auto;
+
+}
+
+.send-message-form input {
+    width: 100%;
+    padding: 15px 10px;
+    border: none;
+    margin: 0;
+    background: white;
+    font-weight: 200;
+}
+
+.send-message-form input:focus {
+    outline-width: 0;
+}
+
+.send-message-form input::placeholder {
+    color: black;
 }
