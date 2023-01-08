@@ -2,10 +2,9 @@
 
 // !Imports -------------------------------------
 import React from 'react'
-import { useEffect, useState } from "react"
+import { useState, useRef } from "react"
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Input, Form } from "reactstrap";
 import './message.css'
 
 
@@ -13,7 +12,9 @@ import './message.css'
 function MessageDisplay(props) {
     console.log(props);
     const decoded = props.token ? jwt_decode(props.token) : "";
-    const navigate = useNavigate();
+    const [isUpdate, setIsUpdate] = useState(false);
+    const [updateId, setUpdateId] = useState();
+    const bodyRef = useRef();
 
     // ! Delete room function ----------------------------------------------------------------
     async function deleteMessage(id) {
@@ -40,6 +41,38 @@ function MessageDisplay(props) {
             console.log(err);
         }
     }
+    async function update(e) {
+        e.preventDefault();
+        setIsUpdate(false);
+        console.log("updated");
+
+
+        const body = bodyRef.current.value;
+
+        let url = `http://localhost:4000/message/update/${updateId}`
+
+        let bodyObject = JSON.stringify({body});
+
+        let myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", props.token);
+
+        const requestOptions = {
+            headers: myHeaders,
+            body: bodyObject,
+            method: "PATCH",
+        };
+
+        try {
+            const response = await fetch(url, requestOptions);
+            const data = await response.json();
+            props.fetchMessages();
+            console.log(data)
+        } catch (error) {
+            console.log(error.message)
+        }
+
+    }
 
     // ! Edit Message function-------------------------------------------------------------------------
     return (
@@ -48,8 +81,9 @@ function MessageDisplay(props) {
             <ul className="message-list">
                 {props.messages.map((message) => (
                     <li key={message._id} className="message">
+                            
                         <div>{message.user.userName} {message.when}</div>
-                        <div>{message.body}</div>
+                        {isUpdate && updateId == message._id ? <Form onSubmit={update}><Input innerRef={bodyRef} defaultValue={message.body}></Input></Form> : <div>{message.body}</div>}
 
                         {decoded.isAdmin === true || decoded.id === message.user._id ? (
                             <div>
@@ -59,6 +93,8 @@ function MessageDisplay(props) {
                                     <Button
                                         color="warning"
                                         onClick={() => {
+                                            setIsUpdate(true)
+                                            setUpdateId(message._id)
                                             console.log("update")
                                         }}>
                                         Edit
