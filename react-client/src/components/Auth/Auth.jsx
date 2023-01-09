@@ -13,7 +13,7 @@ function Auth(props) {
       {/* Setting it up so signup will be half the page and login the other half */}
       <div className="background">
         <Container className="authcontainer">
-          <h1>Welcome to JSQUARED CHAT</h1>
+          <h1>Welcome to J² CHAT</h1>
           <Row>
             <Col md="6">
               <Signup updateToken={props.updateToken} />
