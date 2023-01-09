@@ -2,7 +2,7 @@
 
 // !Imports -------------------------------------
 import React from "react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import jwt_decode from "jwt-decode";
 import {
   Input,
@@ -17,13 +17,11 @@ import "./message.css";
 // ! React Component-------------------------------------------------------------
 // ? Constants and everything we are passing to the server---------------------------------------------------------------------
 function MessageDisplay(props) {
-    const decoded = props.token ? jwt_decode(props.token) : "";
-    const [isUpdate, setIsUpdate] = useState(false);
-    const [updateId, setUpdateId] = useState();
-    const bodyRef = useRef();
+  const decoded = props.token ? jwt_decode(props.token) : "";
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [updateId, setUpdateId] = useState();
+  const bodyRef = useRef();
 
-  // TODOD for bottom scrolling
-  // const bottomRef = useRef(null);
 
   // ! Delete room function ----------------------------------------------------------------
   async function deleteMessage(id) {
@@ -88,11 +86,12 @@ function MessageDisplay(props) {
     }
   }
 
-  // !TODO ------------------------------------------------------- message scroll
-  //  useEffect(() => {
-  //   // 👇️ scroll to bottom every time messages change
-  //   bottomRef.current?.scrollIntoView({behavior: 'smooth'});
-  // }, [props.messages]);
+  // code to scroll to the bottom when a new message comes in
+  const bottomRef = useRef(null);
+  useEffect(() => {
+    //  scroll to bottom every time messages change
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [props.messages]);
 
   // ?------------------The return, which is what is visible to the client
   return (
@@ -140,7 +139,7 @@ function MessageDisplay(props) {
                   ) : null}
 
                   {decoded.isAdmin === true ||
-                  decoded.id === message.user._id ? (
+                    decoded.id === message.user._id ? (
                     <div>
                       <>
                         <DropdownItem
@@ -155,11 +154,11 @@ function MessageDisplay(props) {
               </UncontrolledDropdown>
             </li>
           ))}
+          {/* If we want automatic scrolling */}
+          <div ref={bottomRef} />
         </ul>
       </div>
 
-      {/* If we want automatic scrolling */}
-      {/* <div ref={bottomRef} /> */}
     </>
   );
 }

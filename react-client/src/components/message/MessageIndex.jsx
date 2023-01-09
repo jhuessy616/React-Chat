@@ -14,6 +14,7 @@ function MessageIndex(props) {
   const { id, name } = useParams();
   // Setting up state so we can edit/update the messages.
   const [messages, setMessages] = useState([]);
+  const [autoScroll, setAutoScroll] = useState(true);
   // Fetching all rooms from our database so we will be able to access and display them in MessageCreate and MessageDisplay.
   const fetchMessages = async () => {
     //   everything we need to send to the database being stored in variables
@@ -29,7 +30,7 @@ function MessageIndex(props) {
       const response = await fetch(url, requestOptions);
       const data = await response.json();
       // console.log(data);
-    console.log("updated");
+      console.log("updated");
       setMessages(data.allMessagesFromRoom);
     } catch (err) {
       console.log(err.message);
@@ -37,13 +38,13 @@ function MessageIndex(props) {
   };
 
 
-    const [messageRecieve, setMessageRecieve] = useState(false);
-    useEffect(() => {
-        setTimeout(() => {
-            setMessageRecieve(!messageRecieve);
-            fetchMessages();
-        }, 1000);
-    }, [messageRecieve])
+  const [messageRecieve, setMessageRecieve] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setMessageRecieve(!messageRecieve);
+      fetchMessages();
+    }, 1000);
+  }, [messageRecieve])
 
   // Useeffect to call on our async function of fetch messages. Important token is there or it will fire before the token has loaded and will return an empty array.
   useEffect(() => {
@@ -68,6 +69,7 @@ function MessageIndex(props) {
 
           <MessageCreate
             token={props.token}
+            setAutoScroll={setAutoScroll}
             fetchMessages={fetchMessages}
             roomId={id}
           />

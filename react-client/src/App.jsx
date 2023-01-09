@@ -30,7 +30,6 @@ function App() {
       <Routes>
         <Route path="/" element={<Auth updateToken={updateToken} />} />
         <Route path="/home" element={<RoomIndex token={sessionToken} />} />
-        <Route path="/profile" element={<Profile token={sessionToken} />} />
         <Route path="/chat/:name/:id" element={<MessageIndex token={sessionToken} />} />
         <Route
           path="/chat/:name/:id"
