@@ -28,18 +28,28 @@ function MessageIndex(props) {
     try {
       const response = await fetch(url, requestOptions);
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
+    console.log("updated");
       setMessages(data.allMessagesFromRoom);
     } catch (err) {
       console.log(err.message);
     }
   };
   // Useeffect to call on our async function of fetch rooms. Important token is there or it will fire before the token has loaded and will return an empty array.
-  useEffect(() => {
-    if (props.token) {
-      fetchMessages();
-    }
-  }, [props.token]);
+  // useEffect(() => {
+  //   if (props.token) {
+  //     fetchMessages();
+  //   }
+  // }, [props.token]);
+
+
+    const [messageRecieve, setMessageRecieve] = useState(false);
+    useEffect(() => {
+        setTimeout(() => {
+            setMessageRecieve(!messageRecieve);
+            fetchMessages();
+        }, 1000);
+    }, [messageRecieve])
 
   // ?------------------The return, which is what is visible to the client
   return (

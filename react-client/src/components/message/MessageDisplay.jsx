@@ -10,7 +10,6 @@ import './message.css'
 
 // ! React Component-------------------------------------------------------------
 function MessageDisplay(props) {
-    console.log(props);
     const decoded = props.token ? jwt_decode(props.token) : "";
     const [isUpdate, setIsUpdate] = useState(false);
     const [updateId, setUpdateId] = useState();
