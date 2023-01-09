@@ -1,5 +1,6 @@
+// !Room------------------------------------------------------------
 import React from 'react'
-
+// ! How we want each room to be displayed with a name and a description
 function Room(props) {
     console.log(props)
   return (
@@ -12,5 +13,5 @@ function Room(props) {
       </>
   )
 }
-
+// Exporting room
 export default Room

@@ -1,24 +1,27 @@
-.authcontainer{
+/* !AUth CSss for styling our page */
+
+/* container styling */
+.authcontainer {
   background-color: rgba(71, 133, 236, 0.8);
   padding: 10px;
-
- 
 }
-.background{
-background:url("https://www.dropbox.com/s/lhwfa5dwpy0g2k2/keyboard%20create%20%28edited%29.jpeg?raw=1");
-   background-size: cover;
-   background-position: 70% 20%;
-    height:100vh;
+
+/* background styling */
+.background {
+  background: url("https://www.dropbox.com/s/lhwfa5dwpy0g2k2/keyboard%20create%20%28edited%29.jpeg?raw=1");
+  background-size: cover;
+  background-position: 70% 20%;
+  height: 100vh;
   text-align: center;
   margin: 0;
   padding: 0;
 }
-
-h2{
-    color:white;
+/* h1 and h2 tags */
+h2 {
+  color: white;
 }
-h1{
-    color: white;
-    background-color:rgba(255, 23, 77, 0.9);
-    margin: 10px 10vw
+h1 {
+  color: white;
+  background-color: rgba(255, 23, 77, 0.9);
+  margin: 10px 10vw;
 }

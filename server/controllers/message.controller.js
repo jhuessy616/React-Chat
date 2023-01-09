@@ -17,7 +17,7 @@ router.post("/create/:room", validateSession, async (req, res) => {
     }
     // Preparing the message object to be saved to the database based on the Room Schema Model
     const message = new Message({
-      when: new Date(),
+      when: new Date().toLocaleString(),
       user: req.user._id,
       room: req.params.room,
       body: req.body.body,
