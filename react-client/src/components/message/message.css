@@ -1,66 +1,87 @@
-.messagecontainer{
-    height: calc(100% - 100px); 
-    background-color: red;
+/* !Css for the chatroom */
 
+/* Setting the background to rob */
+.messagebackground {
+  background: url("./assets/rob.png");
+  background-size: 10%;
+  opacity: 0.9;
+  min-height: 100vh;
 }
-
-.message{
-  
-    margin: 15px 0;
-text-align: left;
-}
-.message div:nth-child(1) {
-    font-size: 11px;
-    color: var(--main-text-color);
-    opacity: 0.9;
-    margin-bottom: 6px;
-}
-.message div:nth-child(2) {
-    background: blue;
-    color: white;
-    display: inline;
-    padding: 4px 8px;
-    border-radius: 8px;
+/* The containers specifications */
+.messagecontainer {
+  height: calc(100% - 100px);
+  background-color: rgba(106, 169, 211, 0.8);
+  padding-bottom: 20px;
 }
 
+/* H1 color withing the containers */
+.messagecontainer h1 {
+  color: rgb(92, 55, 171);
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* Message display div settings including size and scroll */
+.messageDisplay {
+  max-height: 59vh;
+  overflow-y: scroll;
+  text-align: left;
+}
+
+/* Message header which includes the username and date */
+.messageHeader {
+  font-size: 10px;
+  color: grey;
+  opacity: 0.9;
+  margin-bottom: 6px;
+}
+/* Just the username */
+.username {
+  color: rgb(65, 105, 225);
+  font-size: 15px;
+}
+/* Message body for how they will appear in the chatbox */
+.messageBody {
+  background: #5ea3d0;
+  color: white;
+  display: inline;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+/* The list of all of our messages */
 .message-list {
-    box-sizing: border-box;
-    padding: 0 0 0 6px;
-    margin: 0;
-    width: 100%;
-    min-height: 100vh;
-    overflow: scroll;
-    background: white;
-    border: solid black 2px;
-    margin-bottom: 50px;
-    display: flex;
-    flex-direction: column;
+  box-sizing: border-box;
+  padding: 0 0 0 6px;
+  margin-bottom: 5px;
+  width: 100%;
+  min-height: 100vh;
+  background: white;
+  border: solid purple 2px;
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
 }
-
+/* The test box area where we write our new message */
 .send-message-form {
-    position: fixed;
-    bottom:0;
-    width:100%;
-    margin: 15px;
-    box-sizing: border-box;
-    height: 50px;
-    margin-top: auto;
-
+  bottom: 0;
+  width: 100%;
+  border-bottom: solid blue;
+  height: 50px;
+  margin-top: auto;
 }
-
+/* The input field of the send message form */
 .send-message-form input {
-    width: 100%;
-    padding: 15px 10px;
-    border: none;
-    margin: 0;
-    background: white;
-    font-weight: 200;
+  width: 100%;
+  padding: 15px 10px;
+  border: solid blue;
+  margin: 0;
+  background: white;
+  font-weight: 200;
 }
-
+/* send message form input focus */
 .send-message-form input:focus {
-    outline-width: 0;
+  outline-width: 0;
 }
-
+/* placeholder text in the input form */
 .send-message-form input::placeholder {
-    color: black;
+  color: black;
 }

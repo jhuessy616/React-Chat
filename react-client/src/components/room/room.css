@@ -1,45 +1,50 @@
-.roombackground{
-background:url("https://live.staticflickr.com/7445/10728400246_c006fa51cd_b.jpg");
-   background-size: cover;
+/* ! Room Css */
+
+/* Background image set, aligning text */
+.roombackground {
+  background: url("https://live.staticflickr.com/7445/10728400246_c006fa51cd_b.jpg");
+  background-size: cover;
   text-align: center;
   margin: 0;
   padding: 0;
   min-height: 100vh;
- 
 }
-
+/* room container background, paragraphm label,and h1 */
 .roomcontainer {
-    background-color: rgba(243,187,80, .8);
-
+  background-color: rgba(243, 187, 80, 0.8);
 }
-.roomcontainer p, Label{
-    color: rgb(117,0,1);
-}
-
-.roomcontainer h1{
-    color: rgb(90,0,3);
-    background-color:rgb(0,0,0,0);
+.roomcontainer p,
+Label {
+  color: rgb(117, 0, 1);
 }
 
-.roomDisplay h3{
-    color:rgb(90,0,3);
+.roomcontainer h1 {
+  color: rgb(90, 0, 3);
+  background-color: rgb(0, 0, 0, 0);
 }
-.roomDisplay{
-   max-height:59vh;
-   overflow-y: scroll;
-    margin: 15px 50px 15px 15px;
+/* room display, and room display h3 */
+.roomDisplay {
+  max-height: 59vh;
+  overflow-y: scroll;
+  margin: 15px 50px 15px 15px;
+}
 
+.roomDisplay h3 {
+  color: rgb(90, 0, 3);
 }
-.createRoom{
-    margin: 15px 0px 0px 50px;
+
+/* Create room and create form styling */
+.createRoom {
+  margin: 15px 0px 0px 50px;
 }
-.createForm{
-     border: solid rgb(90,0,3) 2px;
-     padding:5px;
-     margin-top: 15px;
+.createForm {
+  border: solid rgb(90, 0, 3) 2px;
+  padding: 5px;
+  margin-top: 15px;
 }
+/* Room div styling */
 .room {
-    border: solid rgb(90,0,3) 2px;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
+  border: solid rgb(90, 0, 3) 2px;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
 }

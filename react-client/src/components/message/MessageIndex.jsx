@@ -35,12 +35,6 @@ function MessageIndex(props) {
       console.log(err.message);
     }
   };
-  // Useeffect to call on our async function of fetch rooms. Important token is there or it will fire before the token has loaded and will return an empty array.
-  // useEffect(() => {
-  //   if (props.token) {
-  //     fetchMessages();
-  //   }
-  // }, [props.token]);
 
 
     const [messageRecieve, setMessageRecieve] = useState(false);
@@ -51,28 +45,33 @@ function MessageIndex(props) {
         }, 1000);
     }, [messageRecieve])
 
+  // Useeffect to call on our async function of fetch messages. Important token is there or it will fire before the token has loaded and will return an empty array.
+  useEffect(() => {
+    if (props.token) {
+      fetchMessages();
+    }
+  }, [props.token]);
+
   // ?------------------The return, which is what is visible to the client
   return (
     <>
       {/* contains a create area and a display area, creat will use 1/3 of the screen and the display will take up the other 2/3rds */}
+      <div className="messagebackground border d-flex align-items-center justify-content-center">
+        <Container className="messagecontainer">
+          <h1>Welcome to the {name} Room Chat</h1>
 
-      <div className="messagecontainer">
-        <h1>Welcome to the {name} Chat</h1>
-  
-        
-            <MessageDisplay
-              token={props.token}
-              messages={messages}
-              fetchMessages={fetchMessages}
-            />
-          
-            <MessageCreate
-              token={props.token}
-              fetchMessages={fetchMessages}
-              roomId={id}
-            />
-         
-      
+          <MessageDisplay
+            token={props.token}
+            messages={messages}
+            fetchMessages={fetchMessages}
+          />
+
+          <MessageCreate
+            token={props.token}
+            fetchMessages={fetchMessages}
+            roomId={id}
+          />
+        </Container>
       </div>
     </>
   );

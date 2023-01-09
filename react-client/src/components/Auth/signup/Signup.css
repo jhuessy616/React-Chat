@@ -1,6 +1,7 @@
-.none{
-    display: none;
+/* ! Css for showing and hiding error message  */
+.none {
+  display: none;
 }
-.some{
-    display: block;
+.some {
+  display: block;
 }

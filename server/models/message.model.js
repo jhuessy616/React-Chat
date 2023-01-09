@@ -4,8 +4,7 @@ const mongoose = require("mongoose");
 // Defining MessageSchema. Message object will have when, user, room and body.
 const MessageSchema = new mongoose.Schema({
   when: {
-    type: Date,
-    default: Date.now,
+    type: String,
     required: true,
   },
   // user will be the id of the user that created the message

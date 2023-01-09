@@ -38,7 +38,7 @@ const Login = (props) => {
     // Sending headers that tell content type
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    // complete reques to send to the server
+    // complete request to send to the server
     const requestOptions = {
       headers: myHeaders,
       body: bodyObject,
